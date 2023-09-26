@@ -1,0 +1,36 @@
+* {
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.contacts {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.contacts li {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  cursor: pointer;
+}
+
+.contacts li:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.buttonA {
+  color: #000 !important;
+  background-color: #fff !important;
+  border-color: #46139f;
+}
+
+.buttonB {
+  color: #000 !important;
+  background-color: #fff !important;
+  border-color: #ff7f50 !important;
+}
