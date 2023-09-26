@@ -14,6 +14,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
   const [selectedContact, setSelectedContact] = useState(null);
   const [modalLabel, setModalLabel] = useState(initialModalLabel);
   const [buttonLabel, setButtonLabel] = useState(initialButtonLabel);
+  const [query, setQuery] = useState('');
 
   const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
     // ****** to ensure the navigate function executes after the modal is fully closed
     setTimeout(() => {
       navigate('/problem-2');
-    }, 500);
+    }, 0);
     setShow(false);
     setTabIndex(initialTabIndex);
     setIsChecked(false);
@@ -47,12 +48,27 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
 
   const handleShow = () => setShow(true);
 
+  console.log(contacts[0].country)
+
   // Filter contacts based on the tabIndex
   const filteredContacts = contacts.filter(contact => {
+    // contact.country.name.toLowerCase().includes(query.toLowerCase());
+    // console.log(contact[0]);
     if (tabIndex === 1) {
-      return true; // Show all contacts
+      // return true;
+      return (
+        // Filter by country name or phone number
+        contact.country.name.toLowerCase().includes(query.toLowerCase()) ||
+        contact.phone.includes(query)
+      );
     } else if (tabIndex === 2) {
-      return contact.country.name === 'United States'; // Show US contacts
+      // return contact.country.name === 'United States'; // Show US contacts
+      return (
+        // Filter US contacts by country name or phone number
+        contact.country.name === 'United States' &&
+        (contact.country.name.toLowerCase().includes(query.toLowerCase()) ||
+          contact.phone.includes(query))
+      );
     }
     return false;
   });
@@ -88,6 +104,17 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
         </Modal.Header>
 
         <Modal.Body>
+          {/* Search input */}
+          <Form.Group controlId="search">
+            {/* <Form.Label>Search:</Form.Label> */}
+            <Form.Control
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search here"
+            />
+          </Form.Group>
+
           <ul className='contacts'>
             <li>
               <h4>Country</h4>
