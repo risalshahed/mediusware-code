@@ -11,7 +11,7 @@ const USCountries = () => {
 
   return (
     <Link to='/problem-2/us-countries'>
-      <ContactsModal modalLabel="B" buttonLabel="US Contacts" buttonColor="warning" initialTabIndex={2} />
+      <ContactsModal initialModalLabel="B" initialButtonLabel="US Contacts" buttonColor="warning" initialTabIndex={2} />
     </Link>
   )
   

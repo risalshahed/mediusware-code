@@ -6,19 +6,31 @@ import { Form } from 'react-bootstrap';
 import EachCountry from './EachCountry';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ContactsModal = ({ modalLabel, buttonLabel, buttonColor, initialTabIndex, onButtonClick }) => {
+const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, initialTabIndex, onButtonClick }) => {
   const contacts = useContext(DataContext);
   const [show, setShow] = useState(false);
   const [tabIndex, setTabIndex] = useState(initialTabIndex);
   const [isChecked, setIsChecked] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
+  const [modalLabel, setModalLabel] = useState(initialModalLabel);
+  const [buttonLabel, setButtonLabel] = useState(initialButtonLabel);
 
   const navigate = useNavigate();
 
   const handleAllCountries = e => {
     e.preventDefault();
-    navigate('/problem-2/all-countries')
+    navigate('/problem-2/all-countries');
+    setModalLabel('A');
+    setButtonLabel('All Contacts');
     setTabIndex(1);
+  }
+
+  const handleUSCountries = e => {
+    e.preventDefault();
+    navigate('/problem-2/us-countries');
+    setModalLabel('B');
+    setButtonLabel('US Contacts');
+    setTabIndex(2);
   }
 
 
@@ -26,6 +38,7 @@ const ContactsModal = ({ modalLabel, buttonLabel, buttonColor, initialTabIndex, 
     setShow(false);
     setTabIndex(initialTabIndex);
     setIsChecked(false);
+    navigate('/problem-2/');
   }
 
   const handleShow = () => setShow(true);
@@ -111,7 +124,7 @@ const ContactsModal = ({ modalLabel, buttonLabel, buttonColor, initialTabIndex, 
           </Link>
 
           <Link to="/problem-2/us-countries">
-            <Button className='buttonB' onClick={() => setTabIndex(2)}>
+            <Button className='buttonB' onClick={handleUSCountries}>
               US Contacts
             </Button>
           </Link>
