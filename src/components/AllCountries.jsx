@@ -5,12 +5,12 @@ const AllCountries = () => {
   // const navigate = useNavigate();
 
   // useEffect(() => {
-  //   // Programmatically navigate to "problem-2/all-countries"
-  //   navigate('/problem-2/all-countries');
+  //   // Programmatically navigate to "problem-2/all-contacts"
+  //   navigate('/problem-2/all-contacts');
   // }, [navigate]);
 
   return (
-    <Link to='/problem-2/all-countries'>
+    <Link to='/problem-2/all-contacts'>
       <ContactsModal initialModalLabel="A" initialButtonLabel="All Contacts" buttonColor="primary" initialTabIndex={1} />
     </Link>
   )

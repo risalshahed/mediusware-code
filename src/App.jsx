@@ -16,8 +16,8 @@ function App() {
         <Route path="/" Component={Menu}>
           <Route path="problem-1" Component={Problem1} />
           <Route path="problem-2" Component={Problem2}>
-            <Route path="all-countries" Component={AllCountries} />
-            <Route path="us-countries" Component={USCountries} />
+            <Route path="all-contacts" Component={AllCountries} />
+            <Route path="us-contacts" Component={USCountries} />
           </Route>
         </Route>
       </Routes>

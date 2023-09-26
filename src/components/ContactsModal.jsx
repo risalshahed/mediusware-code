@@ -19,7 +19,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
 
   const handleAllCountries = e => {
     e.preventDefault();
-    navigate('/problem-2/all-countries');
+    navigate('/problem-2/all-contacts');
     setModalLabel('A');
     setButtonLabel('All Contacts');
     setTabIndex(1);
@@ -27,7 +27,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
 
   const handleUSCountries = e => {
     e.preventDefault();
-    navigate('/problem-2/us-countries');
+    navigate('/problem-2/us-contacts');
     setModalLabel('B');
     setButtonLabel('US Contacts');
     setTabIndex(2);
@@ -35,10 +35,14 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
 
 
   const handleClose = () => {
+    // navigate('/problem-2');
+    // ****** to ensure the navigate function executes after the modal is fully closed
+    setTimeout(() => {
+      navigate('/problem-2');
+    }, 500);
     setShow(false);
     setTabIndex(initialTabIndex);
     setIsChecked(false);
-    navigate('/problem-2/');
   }
 
   const handleShow = () => setShow(true);
@@ -117,17 +121,17 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
         </Modal.Body>
 
         <Modal.Footer>
-          <Link to="/problem-2/all-countries">
-            <Button className='buttonA' onClick={handleAllCountries}>
-              All Contacts
-            </Button>
-          </Link>
+          {/* <Link to="/problem-2/all-contacts"> */}
+          <Button className='buttonA' onClick={handleAllCountries}>
+            All Contacts
+          </Button>
+          {/* </Link> */}
 
-          <Link to="/problem-2/us-countries">
-            <Button className='buttonB' onClick={handleUSCountries}>
-              US Contacts
-            </Button>
-          </Link>
+          {/* <Link to="/problem-2/us-contacts"> */}
+          <Button className='buttonB' onClick={handleUSCountries}>
+            US Contacts
+          </Button>
+          {/* </Link> */}
 
           <Button className='buttonA' onClick={handleClose}>
             Close
