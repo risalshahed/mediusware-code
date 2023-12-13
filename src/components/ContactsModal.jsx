@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { DataContext } from './Problem-2';
 import { Form } from 'react-bootstrap';
 import EachCountry from './EachCountry';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, initialTabIndex, onButtonClick }) => {
   const contacts = useContext(DataContext);
@@ -15,7 +15,6 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
   const [modalLabel, setModalLabel] = useState(initialModalLabel);
   const [buttonLabel, setButtonLabel] = useState(initialButtonLabel);
   const [query, setQuery] = useState('');
-
   const navigate = useNavigate();
 
   const handleAllCountries = e => {
@@ -24,7 +23,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
     setModalLabel('A');
     setButtonLabel('All Contacts');
     setTabIndex(1);
-  }
+  };
 
   const handleUSCountries = e => {
     e.preventDefault();
@@ -32,39 +31,27 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
     setModalLabel('B');
     setButtonLabel('US Contacts');
     setTabIndex(2);
-  }
-
+  };
 
   const handleClose = () => {
-    // navigate('/problem-2');
-    // ****** to ensure the navigate function executes after the modal is fully closed
     setTimeout(() => {
       navigate('/problem-2');
     }, 0);
     setShow(false);
     setTabIndex(initialTabIndex);
     setIsChecked(false);
-  }
+  };
 
   const handleShow = () => setShow(true);
 
-  console.log(contacts[0].country)
-
-  // Filter contacts based on the tabIndex
-  const filteredContacts = contacts.filter(contact => {
-    // contact.country.name.toLowerCase().includes(query.toLowerCase());
-    // console.log(contact[0]);
+  const filteredContacts = contacts?.filter(contact => {
     if (tabIndex === 1) {
-      // return true;
       return (
-        // Filter by country name or phone number
         contact.country.name.toLowerCase().includes(query.toLowerCase()) ||
         contact.phone.includes(query)
       );
     } else if (tabIndex === 2) {
-      // return contact.country.name === 'United States'; // Show US contacts
       return (
-        // Filter US contacts by country name or phone number
         contact.country.name === 'United States' &&
         (contact.country.name.toLowerCase().includes(query.toLowerCase()) ||
           contact.phone.includes(query))
@@ -73,24 +60,18 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
     return false;
   });
 
-  const handleChange = e => {
-    // console.log(e.target.checked);  // output is true/false if checked/unchecked
-    setIsChecked(e.target.checked);
-  }
+  const handleOnlyEven = () => setIsChecked(!isChecked);
 
-  const handleContactClick = contact => {
-    setSelectedContact(contact);
-  }
+  const handleContactClick = contact => setSelectedContact(contact);
 
   return (
     <div>
       <button
-        // onClick={handleShow}
         onClick={() => {
-          if (onButtonClick) {
-            onButtonClick(); // Call the onButtonClick prop
+          if(onButtonClick) {
+            onButtonClick();
           }
-          handleShow(); // Show the modal
+          handleShow();
         }}
         className={`btn btn-lg btn-outline-${buttonColor}`}
         type="button"
@@ -104,9 +85,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
         </Modal.Header>
 
         <Modal.Body>
-          {/* Search input */}
           <Form.Group controlId="search">
-            {/* <Form.Label>Search:</Form.Label> */}
             <Form.Control
               type="text"
               value={query}
@@ -120,7 +99,7 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
               <h4>Country</h4>
               <h4>Phone</h4>
             </li>
-            {filteredContacts.map(contact => (
+            {filteredContacts?.map(contact => (
               isChecked
               ?
               (
@@ -148,17 +127,13 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
         </Modal.Body>
 
         <Modal.Footer>
-          {/* <Link to="/problem-2/all-contacts"> */}
           <Button className='buttonA' onClick={handleAllCountries}>
             All Contacts
           </Button>
-          {/* </Link> */}
-
-          {/* <Link to="/problem-2/us-contacts"> */}
+          
           <Button className='buttonB' onClick={handleUSCountries}>
             US Contacts
           </Button>
-          {/* </Link> */}
 
           <Button className='buttonA' onClick={handleClose}>
             Close
@@ -167,7 +142,8 @@ const ContactsModal = ({ initialModalLabel, initialButtonLabel, buttonColor, ini
           <Form.Check
             type='switch'
             label='Only Even'
-            onChange={handleChange}
+            checked={isChecked}
+            onClick={handleOnlyEven}
           />
         </Modal.Footer>
       </Modal>
